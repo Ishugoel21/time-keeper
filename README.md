@@ -32,10 +32,10 @@ To get a local copy up and running, follow these simple steps:
 - Local storage is available and enabled.
 - No backend or login system is required.
 - Users input time in common formats (e.g., 5:00, 1:30:00).
-- Alerts are visual only, no sound support.
+- Alerts are visual with sound support.
 - The layout works well on both desktop and mobile.
 - Timer accuracy may slightly vary based on browser performance.
-- Accessibility support is basic and can be improved.
-- Form validation uses Zod and react-hook-form.
-- React Query is included but not actively used.
+- completion modal with sound sound alert
+- dark and light theme support
+
 
