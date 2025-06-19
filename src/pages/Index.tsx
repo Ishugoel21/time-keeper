@@ -150,18 +150,24 @@ const Index = () => {
               </Button>
               <Button
                 variant="outline"
-                onClick={() => setTimers(prev => prev.map(timer =>
-                  timer.status === 'running' ? { ...timer, status: 'paused' } : timer
-                ))}
+                onClick={() => {
+                  setTimers(prev => prev.map(timer =>
+                    timer.status === 'running' ? { ...timer, status: 'paused' } : timer
+                  ));
+                  setCompletedQueue([]);
+                }}
                 className="flex items-center gap-2 w-full sm:w-auto"
               >
                 Pause All
               </Button>
               <Button
                 variant="outline"
-                onClick={() => setTimers(prev => prev.map(timer =>
-                  timer.status !== 'completed' ? { ...timer, status: 'paused', remainingTime: timer.duration, halfwayAlertTriggered: false } : timer
-                ))}
+                onClick={() => {
+                  setTimers(prev => prev.map(timer =>
+                    timer.status !== 'completed' ? { ...timer, status: 'paused', remainingTime: timer.duration, halfwayAlertTriggered: false } : timer
+                  ));
+                  setCompletedQueue([]);
+                }}
                 className="flex items-center gap-2 w-full sm:w-auto"
               >
                 Reset All
