@@ -1,4 +1,3 @@
-
 import { useState, useMemo } from 'react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -90,10 +89,10 @@ export const TimerList = ({ timers, onUpdateTimer, onDeleteTimer, onTimerComplet
   return (
     <div className="space-y-4">
       {categoryGroups.map(({ category, timers: categoryTimers, isExpanded }) => (
-        <Card key={category} className="overflow-hidden">
+        <Card key={category} className="overflow-hidden p-2 sm:p-0">
           {/* Category Header */}
-          <div className="p-4 bg-gray-50 border-b">
-            <div className="flex items-center justify-between">
+          <div className="p-2 sm:p-4 bg-gray-50 border-b">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 sm:gap-0">
               <Button
                 variant="ghost"
                 onClick={() => toggleCategory(category)}
@@ -109,9 +108,8 @@ export const TimerList = ({ timers, onUpdateTimer, onDeleteTimer, onTimerComplet
                   ({categoryTimers.length} timer{categoryTimers.length !== 1 ? 's' : ''})
                 </span>
               </Button>
-              
               {/* Category Actions */}
-              <div className="flex gap-2">
+              <div className="flex flex-wrap gap-2 justify-end">
                 <Button
                   size="sm"
                   variant="outline"

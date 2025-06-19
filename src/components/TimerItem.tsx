@@ -93,14 +93,14 @@ export const TimerItem = ({ timer, onUpdateTimer, onDeleteTimer, onTimerComplete
   const isRunning = timer.status === 'running';
 
   return (
-    <div className="p-4 space-y-4">
-      <div className="flex items-center justify-between">
+    <div className="p-2 sm:p-4 space-y-4">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
         <div className="flex-1">
           <h3 className={`font-semibold text-lg ${isCompleted ? 'text-green-600' : ''}`}>
             {timer.name}
             {isCompleted && ' ✓'}
           </h3>
-          <div className="flex items-center gap-4 text-sm text-gray-600">
+          <div className="flex flex-wrap items-center gap-2 sm:gap-4 text-sm text-gray-600 mt-1">
             <span>
               {formatTime(timer.remainingTime)} / {formatTime(timer.duration)}
             </span>
@@ -112,8 +112,7 @@ export const TimerItem = ({ timer, onUpdateTimer, onDeleteTimer, onTimerComplete
             </span>
           </div>
         </div>
-
-        <div className="flex items-center gap-2">
+        <div className="flex flex-wrap gap-2 justify-end">
           {!isCompleted && (
             <>
               {isRunning ? (
@@ -139,7 +138,7 @@ export const TimerItem = ({ timer, onUpdateTimer, onDeleteTimer, onTimerComplete
       {/* Progress Bar */}
       <div className="space-y-2">
         <Progress value={progress} className="h-2" />
-        <div className="flex justify-between text-xs text-gray-500">
+        <div className="flex flex-col sm:flex-row sm:justify-between text-xs text-gray-500 gap-1">
           <span>{Math.round(progress)}% complete</span>
           {timer.halfwayAlert && (
             <span className={timer.halfwayAlertTriggered ? 'text-orange-500' : ''}>

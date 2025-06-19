@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -39,7 +38,7 @@ export const TimerHistory = ({ history }: TimerHistoryProps) => {
 
   if (history.length === 0) {
     return (
-      <Card className="p-8 text-center">
+      <Card className="p-6 sm:p-8 text-center">
         <Calendar className="w-16 h-16 text-gray-400 mx-auto mb-4" />
         <h3 className="text-xl font-semibold mb-2">No history yet</h3>
         <p className="text-gray-600">Complete some timers to see your history here!</p>
@@ -50,18 +49,17 @@ export const TimerHistory = ({ history }: TimerHistoryProps) => {
   return (
     <div className="space-y-6">
       {/* Header with filters and export */}
-      <Card className="p-4">
-        <div className="flex items-center justify-between">
+      <Card className="p-2 sm:p-4">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 sm:gap-0">
           <div className="flex items-center gap-4">
             <h2 className="text-xl font-semibold">Timer History</h2>
             <span className="text-sm text-gray-600">
               {filteredHistory.length} completed timer{filteredHistory.length !== 1 ? 's' : ''}
             </span>
           </div>
-          
-          <div className="flex items-center gap-3">
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 sm:gap-3 w-full sm:w-auto">
             <Select value={filterCategory} onValueChange={setFilterCategory}>
-              <SelectTrigger className="w-48">
+              <SelectTrigger className="w-full sm:w-48">
                 <SelectValue placeholder="Filter by category" />
               </SelectTrigger>
               <SelectContent>
@@ -73,11 +71,10 @@ export const TimerHistory = ({ history }: TimerHistoryProps) => {
                 ))}
               </SelectContent>
             </Select>
-            
             <Button
               variant="outline"
               onClick={exportHistory}
-              className="flex items-center gap-2"
+              className="flex items-center gap-2 w-full sm:w-auto"
             >
               <Download className="w-4 h-4" />
               Export
@@ -85,15 +82,14 @@ export const TimerHistory = ({ history }: TimerHistoryProps) => {
           </div>
         </div>
       </Card>
-
       {/* History List */}
       <div className="space-y-3">
         {filteredHistory.map(entry => (
-          <Card key={entry.id} className="p-4">
-            <div className="flex items-center justify-between">
+          <Card key={entry.id} className="p-2 sm:p-4">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
               <div className="flex-1">
                 <h3 className="font-semibold text-lg">{entry.timerName}</h3>
-                <div className="flex items-center gap-4 text-sm text-gray-600 mt-1">
+                <div className="flex flex-wrap items-center gap-2 sm:gap-4 text-sm text-gray-600 mt-1">
                   <div className="flex items-center gap-1">
                     <Tag className="w-3 h-3" />
                     {entry.category}
@@ -108,7 +104,6 @@ export const TimerHistory = ({ history }: TimerHistoryProps) => {
                   </div>
                 </div>
               </div>
-              
               <div className="text-green-600 font-semibold">
                 ✓ Completed
               </div>

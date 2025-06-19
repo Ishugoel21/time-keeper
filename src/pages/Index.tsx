@@ -94,19 +94,19 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 p-4">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 p-2 sm:p-4">
       <div className="max-w-6xl mx-auto">
         {/* Header */}
-        <div className="flex justify-between items-center mb-8">
-          <div>
-            <h1 className="text-4xl font-bold text-gray-900 mb-2">Timer Hub</h1>
+        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-8">
+          <div className="text-center sm:text-left">
+            <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-2">Timer Hub</h1>
             <p className="text-gray-600">Manage your time with customizable timers</p>
           </div>
-          <div className="flex gap-3">
+          <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 w-full sm:w-auto">
             <Button
               variant={activeView === 'timers' ? 'default' : 'outline'}
               onClick={() => setActiveView('timers')}
-              className="flex items-center gap-2"
+              className="flex items-center gap-2 w-full sm:w-auto"
             >
               <Clock className="w-4 h-4" />
               Timers
@@ -114,7 +114,7 @@ const Index = () => {
             <Button
               variant={activeView === 'history' ? 'default' : 'outline'}
               onClick={() => setActiveView('history')}
-              className="flex items-center gap-2"
+              className="flex items-center gap-2 w-full sm:w-auto"
             >
               <History className="w-4 h-4" />
               History

@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -87,10 +86,10 @@ export const AddTimerForm = ({ onAddTimer, onClose, existingCategories }: AddTim
   };
 
   return (
-    <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
-      <Card className="w-full max-w-md p-6">
-        <div className="flex justify-between items-center mb-6">
-          <h2 className="text-2xl font-bold">Add New Timer</h2>
+    <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-2 sm:p-4 z-50">
+      <Card className="w-full max-w-md p-2 sm:p-6">
+        <div className="flex justify-between items-center mb-4 sm:mb-6">
+          <h2 className="text-xl sm:text-2xl font-bold">Add New Timer</h2>
           <Button variant="ghost" size="sm" onClick={onClose}>
             <X className="w-4 h-4" />
           </Button>
@@ -173,11 +172,11 @@ export const AddTimerForm = ({ onAddTimer, onClose, existingCategories }: AddTim
             <Label htmlFor="halfway-alert">Enable halfway alert</Label>
           </div>
 
-          <div className="flex gap-2 pt-4">
-            <Button type="submit" className="flex-1">
+          <div className="flex flex-col sm:flex-row gap-2 pt-4">
+            <Button type="submit" className="flex-1 w-full sm:w-auto">
               Add Timer
             </Button>
-            <Button type="button" variant="outline" onClick={onClose}>
+            <Button type="button" variant="outline" onClick={onClose} className="flex-1 w-full sm:w-auto">
               Cancel
             </Button>
           </div>
