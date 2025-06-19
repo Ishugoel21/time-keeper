@@ -137,6 +137,37 @@ const Index = () => {
               </Button>
             </Card>
 
+            {/* Global Timer Actions */}
+            <Card className="p-4 flex flex-col sm:flex-row gap-2 sm:gap-4 items-center justify-center">
+              <Button
+                variant="outline"
+                onClick={() => setTimers(prev => prev.map(timer =>
+                  timer.status !== 'completed' ? { ...timer, status: 'running' } : timer
+                ))}
+                className="flex items-center gap-2 w-full sm:w-auto"
+              >
+                Start All
+              </Button>
+              <Button
+                variant="outline"
+                onClick={() => setTimers(prev => prev.map(timer =>
+                  timer.status === 'running' ? { ...timer, status: 'paused' } : timer
+                ))}
+                className="flex items-center gap-2 w-full sm:w-auto"
+              >
+                Pause All
+              </Button>
+              <Button
+                variant="outline"
+                onClick={() => setTimers(prev => prev.map(timer =>
+                  timer.status !== 'completed' ? { ...timer, status: 'paused', remainingTime: timer.duration, halfwayAlertTriggered: false } : timer
+                ))}
+                className="flex items-center gap-2 w-full sm:w-auto"
+              >
+                Reset All
+              </Button>
+            </Card>
+
             {/* Timer List */}
             <TimerList
               timers={timers}
