@@ -1,10 +1,21 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
 import { Play, Pause, TimerReset, Trash2 } from 'lucide-react';
 import { Timer } from '@/types/timer';
 import { formatTime } from '@/utils/formatUtils';
 import { toast } from '@/hooks/use-toast';
+import {
+  AlertDialog,
+  AlertDialogTrigger,
+  AlertDialogContent,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogCancel,
+  AlertDialogAction
+} from '@/components/ui/alert-dialog';
 
 interface TimerItemProps {
   timer: Timer;
@@ -15,6 +26,8 @@ interface TimerItemProps {
 
 export const TimerItem = ({ timer, onUpdateTimer, onDeleteTimer, onTimerComplete }: TimerItemProps) => {
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
+  const halfwayAudioRef = useRef<HTMLAudioElement>(null);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
 
   useEffect(() => {
     if (timer.status === 'running' && timer.remainingTime > 0) {
@@ -59,6 +72,15 @@ export const TimerItem = ({ timer, onUpdateTimer, onDeleteTimer, onTimerComplete
         title: "Halfway Point!",
         description: `${timer.name} is halfway complete.`,
       });
+      console.log('Halfway alert triggered for', timer.name);
+      if (halfwayAudioRef.current) {
+        halfwayAudioRef.current.currentTime = 0;
+        halfwayAudioRef.current.play().then(() => {
+          console.log('Halfway alert sound played');
+        }).catch((e) => {
+          console.log('Halfway alert sound play failed', e);
+        });
+      }
       onUpdateTimer(timer.id, { halfwayAlertTriggered: true });
     }
   }, [timer, onTimerComplete, onUpdateTimer]);
@@ -80,9 +102,16 @@ export const TimerItem = ({ timer, onUpdateTimer, onDeleteTimer, onTimerComplete
   };
 
   const handleDelete = () => {
-    if (window.confirm(`Are you sure you want to delete "${timer.name}"?`)) {
-      onDeleteTimer(timer.id);
-    }
+    setShowDeleteModal(true);
+  };
+
+  const confirmDelete = () => {
+    onDeleteTimer(timer.id);
+    setShowDeleteModal(false);
+  };
+
+  const cancelDelete = () => {
+    setShowDeleteModal(false);
   };
 
   const progress = ((timer.duration - timer.remainingTime) / timer.duration) * 100;
@@ -96,6 +125,7 @@ export const TimerItem = ({ timer, onUpdateTimer, onDeleteTimer, onTimerComplete
 
   return (
     <div className="p-2 sm:p-4 space-y-4">
+      <audio ref={halfwayAudioRef} src="/halfway.mp3" preload="auto" />
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
         <div className="flex-1">
           <h3 className={`font-semibold text-lg ${isCompleted ? 'text-green-600' : ''}`}>
@@ -157,6 +187,22 @@ export const TimerItem = ({ timer, onUpdateTimer, onDeleteTimer, onTimerComplete
           )}
         </div>
       </div>
+
+      {/* Delete Confirmation Modal */}
+      <AlertDialog open={showDeleteModal} onOpenChange={setShowDeleteModal}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Delete Timer</AlertDialogTitle>
+            <AlertDialogDescription>
+              Are you sure you want to delete "{timer.name}"? This action cannot be undone.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel onClick={cancelDelete}>Cancel</AlertDialogCancel>
+            <AlertDialogAction onClick={confirmDelete}>Delete</AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   );
 };

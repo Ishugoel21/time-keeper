@@ -2,6 +2,7 @@ import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { CheckCircle, X } from 'lucide-react';
 import { Timer } from '@/types/timer';
+import { useEffect, useRef } from 'react';
 
 interface CompletionModalProps {
   timer: Timer;
@@ -9,8 +10,19 @@ interface CompletionModalProps {
 }
 
 export const CompletionModal = ({ timer, onClose }: CompletionModalProps) => {
+  const audioRef = useRef<HTMLAudioElement>(null);
+
+  useEffect(() => {
+    // Play sound when modal appears
+    if (audioRef.current) {
+      audioRef.current.currentTime = 0;
+      audioRef.current.play().catch(() => {});
+    }
+  }, []);
+
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
+      <audio ref={audioRef} src="/notification.mp3" preload="auto" />
       <Card className="w-full max-w-md p-6 text-center">
         <div className="flex justify-end mb-4">
           <Button variant="ghost" size="sm" onClick={onClose}>
