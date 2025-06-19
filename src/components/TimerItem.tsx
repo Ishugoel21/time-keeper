@@ -40,11 +40,8 @@ export const TimerItem = ({ timer, onUpdateTimer, onDeleteTimer, onTimerComplete
   useEffect(() => {
     // Check for completion
     if (timer.status === 'running' && timer.remainingTime === 0) {
-      // Mark as completed if not already
-      if (timer.status !== 'completed') {
-        onUpdateTimer(timer.id, { status: 'completed' });
-        onTimerComplete({ ...timer, status: 'completed', remainingTime: 0 });
-      }
+      onUpdateTimer(timer.id, { status: 'completed' });
+      onTimerComplete({ ...timer, status: 'completed', remainingTime: 0 });
       if (intervalRef.current) {
         clearInterval(intervalRef.current);
         intervalRef.current = null;
