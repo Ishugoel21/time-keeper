@@ -146,10 +146,10 @@ const Index = () => {
 
             {/* Global Timer Actions */}
             <Card className="p-4">
-              {/* Category Dropdown and Actions - single row, mobile friendly */}
-              <div className="flex flex-row gap-2 w-full overflow-x-auto no-scrollbar items-center justify-center whitespace-nowrap">
+              {/* Category Dropdown and Actions - single row, mobile friendly and visually enhanced */}
+              <div className="flex flex-col gap-2 sm:flex-row sm:gap-2 w-full items-stretch sm:items-center justify-center px-2 py-2 bg-muted/60 dark:bg-muted/30 rounded-xl">
                 <Select value={selectedCategory} onValueChange={setSelectedCategory}>
-                  <SelectTrigger className="w-40 min-w-[10rem]">
+                  <SelectTrigger className="w-full sm:w-40 min-w-[10rem] h-12">
                     <SelectValue placeholder="Category actions..." />
                   </SelectTrigger>
                   <SelectContent>
@@ -163,7 +163,7 @@ const Index = () => {
                   variant="secondary"
                   size="sm"
                   disabled={!selectedCategory}
-                  className="min-w-[80px]"
+                  className="w-full sm:w-auto min-w-[80px] h-12"
                   onClick={() => setTimers(prev => prev.map(timer =>
                     (selectedCategory === '__all__' || timer.category === selectedCategory) && timer.status !== 'completed'
                       ? { ...timer, status: 'running' }
@@ -176,7 +176,7 @@ const Index = () => {
                   variant="secondary"
                   size="sm"
                   disabled={!selectedCategory}
-                  className="min-w-[80px]"
+                  className="w-full sm:w-auto min-w-[80px] h-12"
                   onClick={() => {
                     setTimers(prev => prev.map(timer =>
                       (selectedCategory === '__all__' || timer.category === selectedCategory)
@@ -192,7 +192,7 @@ const Index = () => {
                   variant="secondary"
                   size="sm"
                   disabled={!selectedCategory}
-                  className="min-w-[80px]"
+                  className="w-full sm:w-auto min-w-[80px] h-12"
                   onClick={() => {
                     setTimers(prev => prev.map(timer =>
                       (selectedCategory === '__all__' || timer.category === selectedCategory)
