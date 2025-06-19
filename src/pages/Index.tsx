@@ -14,7 +14,7 @@ const Index = () => {
   const [history, setHistory] = useState<TimerHistoryEntry[]>([]);
   const [showAddForm, setShowAddForm] = useState(false);
   const [showHistory, setShowHistory] = useState(false);
-  const [completedTimer, setCompletedTimer] = useState<Timer | null>(null);
+  const [completedQueue, setCompletedQueue] = useState<Timer[]>([]);
   const [activeView, setActiveView] = useState<'timers' | 'history'>('timers');
 
   // Load data on component mount
@@ -89,7 +89,7 @@ const Index = () => {
       completedAt: new Date().toISOString(),
     };
     setHistory(prev => [historyEntry, ...prev]);
-    setCompletedTimer(timer);
+    setCompletedQueue(prev => [...prev, timer]);
     updateTimer(timer.id, { status: 'completed' });
   };
 
@@ -190,10 +190,10 @@ const Index = () => {
         )}
 
         {/* Completion Modal */}
-        {completedTimer && (
+        {completedQueue.length > 0 && (
           <CompletionModal
-            timer={completedTimer}
-            onClose={() => setCompletedTimer(null)}
+            timer={completedQueue[0]}
+            onClose={() => setCompletedQueue(prev => prev.slice(1))}
           />
         )}
       </div>
