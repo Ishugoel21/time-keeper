@@ -91,7 +91,7 @@ export const TimerList = ({ timers, onUpdateTimer, onDeleteTimer, onTimerComplet
       {categoryGroups.map(({ category, timers: categoryTimers, isExpanded }) => (
         <Card key={category} className="overflow-hidden p-2 sm:p-0">
           {/* Category Header */}
-          <div className="p-2 sm:p-4 bg-gray-50 border-b">
+          <div className="p-2 sm:p-4 bg-card border-b border-border">
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 sm:gap-0">
               <Button
                 variant="ghost"
@@ -104,7 +104,7 @@ export const TimerList = ({ timers, onUpdateTimer, onDeleteTimer, onTimerComplet
                   <ChevronRight className="w-5 h-5" />
                 )}
                 {category}
-                <span className="text-sm font-normal text-gray-600 ml-2">
+                <span className="text-sm font-normal text-muted-foreground ml-2">
                   ({categoryTimers.length} timer{categoryTimers.length !== 1 ? 's' : ''})
                 </span>
               </Button>

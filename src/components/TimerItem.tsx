@@ -89,6 +89,11 @@ export const TimerItem = ({ timer, onUpdateTimer, onDeleteTimer, onTimerComplete
   const isCompleted = timer.status === 'completed';
   const isRunning = timer.status === 'running';
 
+  // Simple linear progress bar
+  let progressColor = 'bg-gray-300';
+  if (isCompleted) progressColor = 'bg-green-500';
+  else if (isRunning) progressColor = 'bg-blue-500';
+
   return (
     <div className="p-2 sm:p-4 space-y-4">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
@@ -132,9 +137,17 @@ export const TimerItem = ({ timer, onUpdateTimer, onDeleteTimer, onTimerComplete
         </div>
       </div>
 
-      {/* Progress Bar */}
+      {/* Simple Progress Bar */}
       <div className="space-y-2">
-        <Progress value={progress} className="h-2" />
+        <div className="relative w-full h-5 rounded-full bg-gray-200 overflow-hidden">
+          <div
+            className={`absolute left-0 top-0 h-full rounded-full transition-all duration-500 ${progressColor} glow-bar`}
+            style={{ width: `${progress}%` }}
+          />
+          <span className="absolute inset-0 flex items-center justify-center text-xs font-semibold text-gray-800 select-none">
+            {Math.round(progress)}%
+          </span>
+        </div>
         <div className="flex flex-col sm:flex-row sm:justify-between text-xs text-gray-500 gap-1">
           <span>{Math.round(progress)}% complete</span>
           {timer.halfwayAlert && (

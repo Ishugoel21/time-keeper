@@ -1,4 +1,3 @@
-
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { CheckCircle, X } from 'lucide-react';
@@ -25,13 +24,13 @@ export const CompletionModal = ({ timer, onClose }: CompletionModalProps) => {
           </div>
           
           <div>
-            <h2 className="text-2xl font-bold text-green-600 mb-2">
+            <h2 className="text-2xl font-bold text-green-600 dark:text-green-400 mb-2">
               Congratulations! 🎉
             </h2>
-            <p className="text-lg text-gray-700">
+            <p className="text-lg text-gray-700 dark:text-foreground">
               <strong>{timer.name}</strong> has been completed!
             </p>
-            <p className="text-sm text-gray-600 mt-2">
+            <p className="text-sm text-gray-600 dark:text-muted-foreground mt-2">
               Category: {timer.category}
             </p>
           </div>

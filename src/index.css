@@ -98,6 +98,24 @@
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground transition-colors duration-500;
+  }
+
+  .dark body {
+    background: linear-gradient(135deg, #181c2f 0%, #232946 100%) !important;
+  }
+
+  .card, .dark .card {
+    @apply shadow-xl border border-border backdrop-blur-md;
+    transition: background 0.4s, color 0.4s, box-shadow 0.4s;
+  }
+
+  .glow-bar {
+    box-shadow: 0 0 12px 2px #22d3ee66, 0 0 0 0 #0000;
+    transition: box-shadow 0.4s;
+  }
+
+  .dark .glow-bar {
+    box-shadow: 0 0 16px 4px #22d3eecc, 0 0 0 0 #0000;
   }
 }

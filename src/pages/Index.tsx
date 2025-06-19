@@ -8,6 +8,7 @@ import { TimerHistory } from '@/components/TimerHistory';
 import { CompletionModal } from '@/components/CompletionModal';
 import { Timer, TimerHistoryEntry } from '@/types/timer';
 import { saveTimers, loadTimers, saveHistory, loadHistory } from '@/utils/storage';
+import { ThemeSwitcher } from '@/components/ui/switch';
 
 const Index = () => {
   const [timers, setTimers] = useState<Timer[]>([]);
@@ -94,31 +95,34 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 p-2 sm:p-4">
+    <div className="min-h-screen bg-background text-foreground p-2 sm:p-4">
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-8">
-          <div className="text-center sm:text-left">
-            <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-2">Timer Hub</h1>
-            <p className="text-gray-600">Manage your time with customizable timers</p>
-          </div>
-          <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 w-full sm:w-auto">
-            <Button
-              variant={activeView === 'timers' ? 'default' : 'outline'}
-              onClick={() => setActiveView('timers')}
-              className="flex items-center gap-2 w-full sm:w-auto"
-            >
-              <Clock className="w-4 h-4" />
-              Timers
-            </Button>
-            <Button
-              variant={activeView === 'history' ? 'default' : 'outline'}
-              onClick={() => setActiveView('history')}
-              className="flex items-center gap-2 w-full sm:w-auto"
-            >
-              <History className="w-4 h-4" />
-              History
-            </Button>
+          <div className="w-full bg-white/70 dark:bg-white/10 backdrop-blur-md rounded-xl shadow-lg p-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 transition-all duration-500">
+            <div className="text-center sm:text-left">
+              <h1 className="text-3xl sm:text-4xl font-bold mb-2">Timer Hub</h1>
+              <p className="text-muted-foreground">Manage your time with customizable timers</p>
+            </div>
+            <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 w-full sm:w-auto items-center justify-end">
+              <ThemeSwitcher />
+              <Button
+                variant={activeView === 'timers' ? 'default' : 'outline'}
+                onClick={() => setActiveView('timers')}
+                className="flex items-center gap-2 w-full sm:w-auto"
+              >
+                <Clock className="w-4 h-4" />
+                Timers
+              </Button>
+              <Button
+                variant={activeView === 'history' ? 'default' : 'outline'}
+                onClick={() => setActiveView('history')}
+                className="flex items-center gap-2 w-full sm:w-auto"
+              >
+                <History className="w-4 h-4" />
+                History
+              </Button>
+            </div>
           </div>
         </div>
 
