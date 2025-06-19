@@ -108,36 +108,6 @@ export const TimerList = ({ timers, onUpdateTimer, onDeleteTimer, onTimerComplet
                   ({categoryTimers.length} timer{categoryTimers.length !== 1 ? 's' : ''})
                 </span>
               </Button>
-              {/* Category Actions */}
-              <div className="flex flex-wrap gap-2 justify-end">
-                <Button
-                  size="sm"
-                  variant="outline"
-                  onClick={() => handleCategoryAction(category, 'start')}
-                  className="flex items-center gap-1"
-                >
-                  <Play className="w-3 h-3" />
-                  Start All
-                </Button>
-                <Button
-                  size="sm"
-                  variant="outline"
-                  onClick={() => handleCategoryAction(category, 'pause')}
-                  className="flex items-center gap-1"
-                >
-                  <Pause className="w-3 h-3" />
-                  Pause All
-                </Button>
-                <Button
-                  size="sm"
-                  variant="outline"
-                  onClick={() => handleCategoryAction(category, 'reset')}
-                  className="flex items-center gap-1"
-                >
-                  <TimerReset className="w-3 h-3" />
-                  Reset All
-                </Button>
-              </div>
             </div>
           </div>
 
