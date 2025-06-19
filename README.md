@@ -28,13 +28,14 @@ To get a local copy up and running, follow these simple steps:
 
 ## ✅ Assumptions Made During Development
 
-- App runs on latest versions of modern browsers.
-- `localStorage` is available and enabled.
-- No server or authentication required; purely client-side.
-- Users understand common time formats.
-- No sound alerts are implemented; all alerts are visual only.
-- Layout adapts fluidly across screen sizes.
-- Timer precision may slightly vary due to JavaScript/browser timing.
-- Minimal accessibility features; WCAG compliance can be improved.
-- Form validation is handled by **Zod** via **react-hook-form**.
-- `react-query` is included for future use, not currently necessary.
+- The app runs on modern browsers.
+- Local storage is available and enabled.
+- No backend or login system is required.
+- Users input time in common formats (e.g., 5:00, 1:30:00).
+- Alerts are visual only, no sound support.
+- The layout works well on both desktop and mobile.
+- Timer accuracy may slightly vary based on browser performance.
+- Accessibility support is basic and can be improved.
+- Form validation uses Zod and react-hook-form.
+- React Query is included but not actively used.
+
