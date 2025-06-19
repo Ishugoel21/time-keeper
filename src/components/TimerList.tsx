@@ -116,7 +116,7 @@ export const TimerList = ({ timers, onUpdateTimer, onDeleteTimer, onTimerComplet
             <div className="divide-y">
               {categoryTimers.map(timer => (
                 <TimerItem
-                  key={timer.id}
+                  key={timer.id + '-' + timer.status + '-' + timer.remainingTime}
                   timer={timer}
                   onUpdateTimer={onUpdateTimer}
                   onDeleteTimer={onDeleteTimer}
