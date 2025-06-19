@@ -151,9 +151,10 @@ const Index = () => {
               <Button
                 variant="outline"
                 onClick={() => {
-                  setTimers(prev => prev.map(timer =>
-                    timer.status === 'running' ? { ...timer, status: 'paused' } : timer
-                  ));
+                  setTimers(prev => prev.map(timer => ({
+                    ...timer,
+                    status: 'paused'
+                  })));
                   setCompletedQueue([]);
                 }}
                 className="flex items-center gap-2 w-full sm:w-auto"
@@ -163,9 +164,12 @@ const Index = () => {
               <Button
                 variant="outline"
                 onClick={() => {
-                  setTimers(prev => prev.map(timer =>
-                    timer.status !== 'completed' ? { ...timer, status: 'paused', remainingTime: timer.duration, halfwayAlertTriggered: false } : timer
-                  ));
+                  setTimers(prev => prev.map(timer => ({
+                    ...timer,
+                    status: 'paused',
+                    remainingTime: timer.duration,
+                    halfwayAlertTriggered: false
+                  })));
                   setCompletedQueue([]);
                 }}
                 className="flex items-center gap-2 w-full sm:w-auto"
