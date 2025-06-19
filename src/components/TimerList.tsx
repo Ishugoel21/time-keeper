@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { ChevronDown, ChevronRight, Play, Pause, TimerReset } from 'lucide-react';
 import { Timer, CategoryGroup } from '@/types/timer';
 import { TimerItem } from './TimerItem';
+import { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider } from '@/components/ui/tooltip';
 
 interface TimerListProps {
   timers: Timer[];
@@ -93,21 +94,23 @@ export const TimerList = ({ timers, onUpdateTimer, onDeleteTimer, onTimerComplet
           {/* Category Header */}
           <div className="p-2 sm:p-4 bg-card border-b border-border">
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 sm:gap-0">
-              <Button
-                variant="ghost"
-                onClick={() => toggleCategory(category)}
-                className="flex items-center gap-2 p-0 h-auto font-semibold text-lg"
-              >
-                {isExpanded ? (
-                  <ChevronDown className="w-5 h-5" />
-                ) : (
-                  <ChevronRight className="w-5 h-5" />
-                )}
-                {category}
-                <span className="text-sm font-normal text-muted-foreground ml-2">
-                  ({categoryTimers.length} timer{categoryTimers.length !== 1 ? 's' : ''})
-                </span>
-              </Button>
+              <div className="flex items-center gap-2">
+                <Button
+                  variant="ghost"
+                  onClick={() => toggleCategory(category)}
+                  className="flex items-center gap-2 p-0 h-auto font-semibold text-lg"
+                >
+                  {isExpanded ? (
+                    <ChevronDown className="w-5 h-5" />
+                  ) : (
+                    <ChevronRight className="w-5 h-5" />
+                  )}
+                  {category}
+                  <span className="text-sm font-normal text-muted-foreground ml-2">
+                    ({categoryTimers.length} timer{categoryTimers.length !== 1 ? 's' : ''})
+                  </span>
+                </Button>
+              </div>
             </div>
           </div>
 

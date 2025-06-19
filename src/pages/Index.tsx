@@ -9,6 +9,7 @@ import { CompletionModal } from '@/components/CompletionModal';
 import { Timer, TimerHistoryEntry } from '@/types/timer';
 import { saveTimers, loadTimers, saveHistory, loadHistory } from '@/utils/storage';
 import { ThemeSwitcher } from '@/components/ui/switch';
+import { Select, SelectTrigger, SelectContent, SelectItem, SelectValue } from '@/components/ui/select';
 
 const Index = () => {
   const [timers, setTimers] = useState<Timer[]>([]);
@@ -17,6 +18,8 @@ const Index = () => {
   const [showHistory, setShowHistory] = useState(false);
   const [completedQueue, setCompletedQueue] = useState<Timer[]>([]);
   const [activeView, setActiveView] = useState<'timers' | 'history'>('timers');
+  const [selectedCategory, setSelectedCategory] = useState<string>('');
+  const categories = Array.from(new Set(timers.map(t => t.category)));
 
   // Load data on component mount
   useEffect(() => {
@@ -143,43 +146,62 @@ const Index = () => {
 
             {/* Global Timer Actions */}
             <Card className="p-4 flex flex-col sm:flex-row gap-2 sm:gap-4 items-center justify-center">
-              <Button
-                variant="outline"
-                onClick={() => setTimers(prev => prev.map(timer =>
-                  timer.status !== 'completed' ? { ...timer, status: 'running' } : timer
-                ))}
-                className="flex items-center gap-2 w-full sm:w-auto"
-              >
-                Start All
-              </Button>
-              <Button
-                variant="outline"
-                onClick={() => {
-                  setTimers(prev => prev.map(timer => ({
-                    ...timer,
-                    status: 'paused'
-                  })));
-                  setCompletedQueue([]);
-                }}
-                className="flex items-center gap-2 w-full sm:w-auto"
-              >
-                Pause All
-              </Button>
-              <Button
-                variant="outline"
-                onClick={() => {
-                  setTimers(prev => prev.map(timer => ({
-                    ...timer,
-                    status: 'paused',
-                    remainingTime: timer.duration,
-                    halfwayAlertTriggered: false
-                  })));
-                  setCompletedQueue([]);
-                }}
-                className="flex items-center gap-2 w-full sm:w-auto"
-              >
-                Reset All
-              </Button>
+              {/* Category Dropdown and Actions */}
+              <div className="flex items-center gap-2">
+                <Select value={selectedCategory} onValueChange={setSelectedCategory}>
+                  <SelectTrigger className="w-40">
+                    <SelectValue placeholder="Category actions..." />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="__all__">All Categories</SelectItem>
+                    {categories.map(cat => (
+                      <SelectItem key={cat} value={cat}>{cat}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                <Button
+                  variant="secondary"
+                  size="sm"
+                  disabled={!selectedCategory}
+                  onClick={() => setTimers(prev => prev.map(timer =>
+                    (selectedCategory === '__all__' || timer.category === selectedCategory) && timer.status !== 'completed'
+                      ? { ...timer, status: 'running' }
+                      : timer
+                  ))}
+                >
+                  Start
+                </Button>
+                <Button
+                  variant="secondary"
+                  size="sm"
+                  disabled={!selectedCategory}
+                  onClick={() => {
+                    setTimers(prev => prev.map(timer =>
+                      (selectedCategory === '__all__' || timer.category === selectedCategory)
+                        ? { ...timer, status: 'paused' }
+                        : timer
+                    ));
+                    setCompletedQueue([]);
+                  }}
+                >
+                  Pause
+                </Button>
+                <Button
+                  variant="secondary"
+                  size="sm"
+                  disabled={!selectedCategory}
+                  onClick={() => {
+                    setTimers(prev => prev.map(timer =>
+                      (selectedCategory === '__all__' || timer.category === selectedCategory)
+                        ? { ...timer, status: 'paused', remainingTime: timer.duration, halfwayAlertTriggered: false }
+                        : timer
+                    ));
+                    setCompletedQueue([]);
+                  }}
+                >
+                  Reset
+                </Button>
+              </div>
             </Card>
 
             {/* Timer List */}
