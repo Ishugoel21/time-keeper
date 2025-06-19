@@ -145,11 +145,11 @@ const Index = () => {
             </Card>
 
             {/* Global Timer Actions */}
-            <Card className="p-4 flex flex-col sm:flex-row gap-2 sm:gap-4 items-center justify-center">
-              {/* Category Dropdown and Actions */}
-              <div className="flex items-center gap-2">
+            <Card className="p-4">
+              {/* Category Dropdown and Actions - single row, mobile friendly */}
+              <div className="flex flex-row gap-2 w-full overflow-x-auto no-scrollbar items-center justify-center whitespace-nowrap">
                 <Select value={selectedCategory} onValueChange={setSelectedCategory}>
-                  <SelectTrigger className="w-40">
+                  <SelectTrigger className="w-40 min-w-[10rem]">
                     <SelectValue placeholder="Category actions..." />
                   </SelectTrigger>
                   <SelectContent>
@@ -163,6 +163,7 @@ const Index = () => {
                   variant="secondary"
                   size="sm"
                   disabled={!selectedCategory}
+                  className="min-w-[80px]"
                   onClick={() => setTimers(prev => prev.map(timer =>
                     (selectedCategory === '__all__' || timer.category === selectedCategory) && timer.status !== 'completed'
                       ? { ...timer, status: 'running' }
@@ -175,6 +176,7 @@ const Index = () => {
                   variant="secondary"
                   size="sm"
                   disabled={!selectedCategory}
+                  className="min-w-[80px]"
                   onClick={() => {
                     setTimers(prev => prev.map(timer =>
                       (selectedCategory === '__all__' || timer.category === selectedCategory)
@@ -190,6 +192,7 @@ const Index = () => {
                   variant="secondary"
                   size="sm"
                   disabled={!selectedCategory}
+                  className="min-w-[80px]"
                   onClick={() => {
                     setTimers(prev => prev.map(timer =>
                       (selectedCategory === '__all__' || timer.category === selectedCategory)
